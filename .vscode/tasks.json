@@ -1,0 +1,59 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install Dependencies",
+            "type": "shell",
+            "command": "${command:python.createEnvironment}",
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Install Requirements",
+            "type": "shell",
+            "command": "${command:python.interpreterPath}",
+            "args": [
+                "-m",
+                "pip",
+                "install",
+                "-r",
+                "requirements.txt"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Run MCP Server",
+            "type": "shell",
+            "command": "${command:python.interpreterPath}",
+            "args": [
+                "mcp_server_example.py"
+            ],
+            "isBackground": true,
+            "problemMatcher": [],
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "Run MCP Client",
+            "type": "shell",
+            "command": "${command:python.interpreterPath}",
+            "args": [
+                "client_example.py"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "Run MCP Server"
+            ]
+        }
+    ]
+}
